@@ -1,27 +1,25 @@
 .data
-array:      .word 18, 23, 27, 36, 41    
-size:       .word 5                    
-result:     .word 0                    
-target:     .word 27                    
-
+array:.half 0x21, 0x09, 0x02, 0x07, 0x23    
+size:.word 5                    
+result:.word 0                                 
+target:.word 27                    
+.text
 la x1, target        
 lw x2, 0(x1)           
-li x3, 9                # Load 9 (divisor) into x3
-rem x4, x2, x3          # x4 = x2 % x3 (remainder)
-# Check if the remainder is 0
-beqz x4, divisible      # If x4 == 0, jump to divisible
-j not_divisible         # Otherwise, jump to not_divisible
+li x3, 9             
+rem x4, x2, x3       
+beqz x4, divisible 
+j not_divisible   
 
 divisible:
-    la x1, result           # Load address of the result variable into x1
-    li x2, 1                # Load 1 (true) into x2
-    sw x2, 0(x1)            # Store 1 in the result
-    j done                  # Jump to exit
+    la x1, result     
+    li x2, 1            
+    sw x2, 0(x1)   
+    j done           
 
 not_divisible:
-    la x1, result           # Load address of the result variable into x1
-    li x2, 0                # Load 0 (false) into x2
-    sw x2, 0(x1)            # Store 0 in the result
+    la x1, result       
+    li x2, 0            
+    sw x2, 0(x1)       
 done:
-    li x10, 10              # ECALL: Exit
-    ecall
+    addi x20,x0,0xff
