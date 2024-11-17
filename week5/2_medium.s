@@ -10,13 +10,13 @@ la x13,c
 addi x14,x0,10
 
 func:
-    bge x10,x14,end
+    bge x10,x14,end #condition to end the looping
     lh x15,0(x11)
     lh x16,0(x12)
-    mul x17,x15,x16
-    beqz x10,firstc
+    mul x17,x15,x16 #a*b
+    beqz x10,firstc # loop bcz it needs to compute c[0]
     lh x18,-2(x13)   
-    add x17,x17,x18
+    add x17,x17,x18 #a*b+c[i-1]
 
 firstc:
     sh x17,0(x13)
